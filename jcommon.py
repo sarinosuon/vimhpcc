@@ -3782,4 +3782,23 @@ def system_read2_delete(code):
 def run_action(vim, force=0, *args):
   #H_COMMAND# run_action - looks for VIMACTIONS comment and runs it
   jcommon.check_run_actions(vim, force=force)
+  
+  
+# returns (list_of_params, list_of_params_with_defaults, dict_of_defaults)
+def get_func_params_info(fun):
+    all_vars = fun.func_code.co_varnames
+    all_params = all_vars[:fun.func_code.co_argcount]
+
+    defaults = fun.func_defaults
+    if defaults:
+        default_args = all_params[-len(defaults):]
+
+        # match defaults args with their default values
+        d = {}
+        for i in xrange(len(default_args)):
+            d[default_args[i]] = defaults[i]
+
+        return all_params, default_args, d
+    else:
+        return all_params, [], {}
 
