@@ -3779,3 +3779,7 @@ def system_read2_delete(code):
 
     return stdout, stderr
 
+def run_action(vim, force=0, *args):
+  #H_COMMAND# run_action - looks for VIMACTIONS comment and runs it
+  jcommon.check_run_actions(vim, force=force)
+
